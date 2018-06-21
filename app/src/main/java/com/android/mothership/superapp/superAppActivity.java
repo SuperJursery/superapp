@@ -1,6 +1,7 @@
 package com.android.mothership.superapp;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
@@ -10,6 +11,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.content.Context;
+import android.view.View;
+import android.widget.Button;
+import android.view.View.OnClickListener;
 //import android.os.SystemProperties;
 
 public class superAppActivity extends AppCompatActivity {
@@ -25,6 +29,8 @@ public class superAppActivity extends AppCompatActivity {
     private Handler mHandler;
     private int cmdSend=0;
     private int cmdDone=0;
+
+    private Button switchButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,20 @@ public class superAppActivity extends AppCompatActivity {
         sleepWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         usbWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG+"Usb");
         mHandler= new Handler();
+
+        switchButton = (Button) findViewById(R.id.button);
+        switchButton.setOnClickListener(switchButtonHander);
     }
+
+    OnClickListener switchButtonHander = new OnClickListener() {
+        @Override
+        public void onClick(View v){
+            Intent intent = new Intent();
+            ComponentName cpn= new ComponentName("com.android.mothership.superapp","com.android.mothership.superapp.checkSimStatus");
+            intent.setComponent(cpn);
+            startActivity(intent);
+        }
+    };
 
     private final Runnable mEndCallJob = new Runnable() {
         @Override
