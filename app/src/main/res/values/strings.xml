@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">superapp</string>
+    <string name="sim_home">Check Sim Status Page</string>
+    <string name="main_home">This is superapp homepage!</string>
 </resources>

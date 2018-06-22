@@ -1,21 +1,27 @@
 package com.android.mothership.superapp;
 
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.CellLocation;
 import android.telephony.TelephonyManager;
+import android.text.InputType;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 
 public class checkSimStatus extends AppCompatActivity {
     private final String TAG ="checkSimStatus";
     private final String ACTION_SIM_STATE_CHANGED= "android.intent.action.SIM_STATE_CHANGED";
     private TelephonyManager telMgr;
     private Handler mHandler;
+    private EditText enterText;
 
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -37,6 +43,26 @@ public class checkSimStatus extends AppCompatActivity {
         }
     };
 
+    public void gotoMainPage(View view){
+        Log.d(TAG,"do gotoMainPage");
+        Intent intent = new Intent();
+        ComponentName cpn= new ComponentName("com.android.mothership.superapp","com.android.mothership.superapp.superAppActivity");
+        intent.setComponent(cpn);
+        startActivity(intent);
+    }
+    public void phoneCall(View view){
+        String phoneNum=enterText.getText().toString();
+        Log.d(TAG,"ready to call "+phoneNum);
+        CallPhone(phoneNum);
+    }
+
+    public void CallPhone(String phoneNum){
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:"+phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +74,9 @@ public class checkSimStatus extends AppCompatActivity {
         this.registerReceiver(mBroadcastReceiver ,filter);
 
         mHandler = new Handler();
+        enterText =(EditText)findViewById(R.id.enterNum);
+
+
     }
 
     private void checkSim(){
