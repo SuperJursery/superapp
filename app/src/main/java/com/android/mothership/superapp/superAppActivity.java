@@ -31,6 +31,7 @@ public class superAppActivity extends AppCompatActivity {
     private int cmdDone=0;
 
     private Button switchButton;
+    private Button storageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,17 @@ public class superAppActivity extends AppCompatActivity {
 
         switchButton = (Button) findViewById(R.id.button);
         switchButton.setOnClickListener(switchButtonHander);
+
+        storageButton = (Button) findViewById(R.id.btn_storage);
+        storageButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                ComponentName cpn= new ComponentName("com.android.mothership.superapp","com.android.mothership.superapp.StorageInfo");
+                intent.setComponent(cpn);
+                startActivity(intent);
+            }
+        });
     }
 
     OnClickListener switchButtonHander = new OnClickListener() {

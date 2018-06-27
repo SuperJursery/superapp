@@ -28,6 +28,13 @@
             android:textAllCaps="false"
             />
 
+        <Button
+            android:id="@+id/btn_storage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GoTo Check Storage"
+            android:textAllCaps="false"
+            />
     </LinearLayout>
 
 
