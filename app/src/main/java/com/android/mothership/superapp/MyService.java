@@ -8,13 +8,15 @@ import android.util.Log;
 
 public class MyService extends Service {
     private final String TAG = "MyService";
-    Handler mHandler = new Handler();
-    int i = 0;
-    Runnable mRunnable = new Runnable() {
+    private Handler mHandler = new Handler();
+    private int i = 0;
+    private Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
             Log.d(TAG, "MyServiceLife01: do mRunnable:" + i++);
-            mHandler.postDelayed(mRunnable, 1000);
+            if(mHandler!= null) {
+                mHandler.postDelayed(mRunnable, 1000);
+            }
         }
     };
 
@@ -40,6 +42,8 @@ public class MyService extends Service {
     @Override
     public void onDestroy() {
         Log.d(TAG, "MyServiceLife01: do onDestroy()");
+        mHandler.removeCallbacks(mRunnable);
+        mHandler = null;
         super.onDestroy();
     }
 }

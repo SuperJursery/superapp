@@ -29,7 +29,14 @@
             android:exported="true" />
 
         <activity android:name=".checkSimStatus" />
-        <activity android:name=".StorageInfo"></activity>
+        <activity android:name=".StorageInfo" />
+
+        <service
+            android:name=".MusicService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".MediaEnjoy"></activity>
     </application>
 
 </manifest>

@@ -32,6 +32,9 @@ public class superAppActivity extends AppCompatActivity {
 
     private Button switchButton;
     private Button storageButton;
+    private Button serviceStartButton;
+    private Button serviceStopButton;
+    private Button enjoyButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class superAppActivity extends AppCompatActivity {
             }
         };
         this.registerReceiver(mBroadcastReceiver ,filter);
-        startService(new Intent(this, MyService.class));
+
         PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
         sleepWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG);
         usbWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, TAG+"Usb");
@@ -65,6 +68,32 @@ public class superAppActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 ComponentName cpn= new ComponentName("com.android.mothership.superapp","com.android.mothership.superapp.StorageInfo");
+                intent.setComponent(cpn);
+                startActivity(intent);
+            }
+        });
+
+        serviceStartButton = (Button)findViewById(R.id.btn_service_start);
+        serviceStartButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startService(new Intent(superAppActivity.this, MyService.class));
+            }
+        });
+        serviceStopButton  = (Button)findViewById(R.id.btn_service_stop);
+        serviceStopButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                stopService(new Intent(superAppActivity.this, MyService.class));
+            }
+        });
+
+        enjoyButton = (Button)findViewById(R.id.btn_enjoy);
+        enjoyButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                ComponentName cpn= new ComponentName("com.android.mothership.superapp","com.android.mothership.superapp.MediaEnjoy");
                 intent.setComponent(cpn);
                 startActivity(intent);
             }
