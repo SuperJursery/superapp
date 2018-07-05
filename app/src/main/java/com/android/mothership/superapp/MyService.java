@@ -16,7 +16,10 @@ public class MyService extends Service {
             Log.d(TAG, "MyServiceLife01: do mRunnable:" + i++);
             if(mHandler!= null) {
                 mHandler.postDelayed(mRunnable, 1000);
+            }else{
+                //stopSelf(); //mHandler is null, then service stop, will call onDestroy().
             }
+
         }
     };
 
